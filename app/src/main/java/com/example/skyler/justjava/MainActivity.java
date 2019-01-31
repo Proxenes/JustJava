@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Create public quantity and price variables to be used by most methods.
      */
-    public int quantity;
-    public int price = 5;
+    int quantity;
+    int price = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +34,32 @@ public class MainActivity extends AppCompatActivity {
         // and set the initial value of "quantity" to that value.
         TextView quantityTextView = findViewById(R.id.quantity_text_view);
         quantity = Integer.parseInt(quantityTextView.getText().toString());
+        initialPrice();
+    }
+
+    /**
+     * This method is called on create and displays the correct initial price total
+     * based on the text in quantity_text_view.
+     */
+    public void initialPrice() {
+        String priceMessage = "Total: $" + (quantity * price);
+        displayMessage(priceMessage);
     }
 
     /**
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        displayPrice(quantity * price);
+        String priceMessage = "Total: $" + (quantity * price) + "\nThank you!";
+        displayMessage(priceMessage);
+    }
+
+    /**
+     * This method displays the given text on the screen.
+     */
+    private void displayMessage(String message) {
+        TextView priceTextView = findViewById(R.id.price_text_view);
+        priceTextView.setText(message);
     }
 
     /**
@@ -76,4 +95,6 @@ public class MainActivity extends AppCompatActivity {
         TextView priceTextView = findViewById(R.id.price_text_view);
         priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
     }
+
+
 }
