@@ -52,6 +52,17 @@ public class MainActivity extends AppCompatActivity {
     public void submitOrder(View view) {
         String priceMessage = "Total: $" + (quantity * price) + "\nThank you!";
         displayMessage(priceMessage);
+
+        calculatePrice(quantity, price);
+    }
+
+    /**
+     * Calculates the price of the order.
+     *
+     * @param quantity is the number of cups of coffee ordered
+     */
+    private void calculatePrice(int quantity, int coffeePrice) {
+        int price = quantity * coffeePrice;
     }
 
     /**
@@ -67,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void increment(View view) {
         quantity ++;
-        display(quantity);
+        displayQuantity(quantity);
     }
 
     /**
@@ -77,13 +88,13 @@ public class MainActivity extends AppCompatActivity {
         if(quantity > 0)
             quantity --;
 
-        display(quantity);
+        displayQuantity(quantity);
     }
 
     /**
      * This method displays the given quantity value on the screen.
      */
-    private void display(int number) {
+    private void displayQuantity(int number) {
         TextView quantityTextView = findViewById(R.id.quantity_text_view);
         quantityTextView.setText("" + number);
     }
