@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
      * Create public quantity and price variables to be used by most methods.
      */
     int quantity;
-    int price = 5;
+    int cupPrice = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
      * based on the text in quantity_text_view.
      */
     public void initialPrice() {
-        String priceMessage = "Total: $" + (quantity * price);
+        String priceMessage = "Total: $" + (quantity * cupPrice);
         displayMessage(priceMessage);
     }
 
@@ -50,27 +50,25 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        String priceMessage = "Total: $" + (quantity * price) + "\nThank you!";
-        displayMessage(priceMessage);
-
-        calculatePrice(quantity, price);
+        String message = createOrderSummary(calculatePrice());
+        displayMessage(message);
     }
 
     /**
      * Calculates the price of the order.
      *
-     * @param quantity is the number of cups of coffee ordered
+     * @return the total price
      */
-    private void calculatePrice(int quantity, int coffeePrice) {
-        int price = quantity * coffeePrice;
+    private int calculatePrice() {
+        return (quantity * cupPrice);
     }
 
     /**
      * This method displays the given text on the screen.
      */
     private void displayMessage(String message) {
-        TextView priceTextView = findViewById(R.id.price_text_view);
-        priceTextView.setText(message);
+        TextView orderSummaryTextView = findViewById(R.id.order_summary_text_view);
+        orderSummaryTextView.setText(message);
     }
 
     /**
@@ -100,12 +98,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method displays the given price on the screen.
+     * Creates the summary for an order.
+     *
+     * @param price is the total price of the order.
+     * @return the complete String message for the order summary.
      */
-    private void displayPrice(int number) {
-        TextView priceTextView = findViewById(R.id.price_text_view);
-        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
-    }
+    private String createOrderSummary(int price){
+        String orderMessage;
+        orderMessage = "Name:  Skyler" + "\n"
+                        + "Quantity:  " + quantity + "\n"
+                        + "Total:  " + "$" + price + "\n"
+                        + "Thank you!";
 
+        return orderMessage;
+    }
 
 }
